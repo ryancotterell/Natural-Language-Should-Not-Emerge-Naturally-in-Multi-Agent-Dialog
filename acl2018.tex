@@ -1,0 +1,381 @@
+%
+% File acl2018.tex
+%
+%% Based on the style files for ACL-2017, with some changes, which were, in turn,
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{acl2018}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage[inline, shortlabels]{enumitem}
+\setlist{itemjoin ={,\enspace},itemjoin* = { and\enspace}}
+\usepackage{xspace}
+
+\newtheorem{prop}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+
+
+%\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}  % allows better color names
+\usepackage{todonotes}
+%\usepackage[disable]{todonotes}
+\makeatletter
+\newcommand*\iftodonotes{\if@todonotes@disabled\expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi}  % defines \iftodonotes{<true>}{<false>}, thanks to https://tex.stackexchange.com/questions/126559/conditional-based-on-packageoption
+\makeatother
+\newcommand{\noindentaftertodo}{\iftodonotes{\noindent}{}}
+% Note that these macros accept optional arguments such as size=\small, bordercolor=red, and so on.  Capitalized versions are inline paragraphs instead of margin notes.
+\newcommand{\fixme}[2][]{\todo[color=yellow,size=\scriptsize,fancyline,caption={},#1]{#2}} % to mark stuff that you know is missing or wrong when you write the text
+\newcommand{\note}[4][]{\todo[author=#2,color=#3,size=\scriptsize,fancyline,caption={},#1]{#4}} % default note settings, used by macros below.
+\newcommand{\jason}[2][]{\note[#1]{jason}{green!40}{#2}}
+\newcommand{\ryan}[2][]{\note[#1]{ryan}{violet!40}{#2}}
+\newcommand{\notewho}[3][]{\note[#1]{#2}{blue!40}{#3}}     % for other commenters: specify author name in first required arg
+\newcommand{\Fixme}[2][]{\fixme[inline,#1]{#2}\noindentaftertodo}
+\newcommand{\Notewho}[3][]{\notewho[inline,#1]{#2}{#3}\noindentaftertodo}
+\newcommand{\Jason}[2][]{\jason[inline,#1]{#2}\noindentaftertodo}
+\newcommand{\Ryan}[2][]{\ryan[inline,#1]{#2}\noindentaftertodo}
+%\renewcommand{\note}[4][]{}
+\newcommand{\lawrence}[2][]{\note[#1]{Lawrence}{cyan!40}{#2}}
+\newcommand{\Lawrence}[2][]{\lawrence[inline,#1]{#2}}   % \noindent
+% macros
+
+\usepackage{cleveref}
+\crefname{section}{\S}{\S\S}
+\Crefname{section}{\S}{\S\S}
+\crefname{table}{Tab.}{}
+\crefname{figure}{Fig.}{}
+\crefname{algorithm}{Algorithm}{}
+\crefname{equation}{eq.}{}
+\crefname{appendix}{App.}{}
+\crefformat{section}{\S#2#1#3}  % remove space between section symbol and the number
+
+
+% ryans macros
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\mm}{\mathbf{m}}
+\newcommand{\qlist}{q_{\textit{list}}}
+\newcommand{\pspeak}{p_{\textit{speak}}}
+\newcommand{\defn}[1]{\textbf{#1}}
+\newcommand{\XX}{XX\xspace}
+\newcommand{\word}[1]{\textit{#1}}
+\newcommand{\mtag}[1]{\textsc{#1}}
+\newcommand{\lemma}[1]{\texttt{#1}}
+\newcommand{\calM}{{\cal M}}
+\newcommand{\calC}{{\cal C}}
+\newcommand{\vech}{\mathbf{h}}
+\newcommand{\vecb}{\mathbf{b}}
+
+%\aclfinalcopy % Uncomment this line for the final submission
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B{\sc ib}\TeX}
+
+\title{Natural Language \emph{Should Not} Emerge `Naturally' in Multi-Agent Dialog}
+
+\author{First Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  {\tt email@domain} \\\And
+  Second Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  {\tt email@domain} \\}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+
+\end{abstract}
+
+
+\section{Introduction}\label{sec:introduction}
+In the NLP community, there is a nascent interest in  communication protocols that emerge from interactions in a multi-agent system. A cursory reading
+of the literature would suggest that languages that are human-like emerge easily and naturally Specifically, it has been claimed that, under relatively mild conditions, 
+interpretable languages with compositional syntax will emerge in such systems. Rebutting this point, \newcite{D17-1321} show in an empirical study that these claims are overstated. In an exhaustive ablation study, they show that compositional language
+does not emerge naturally, but rather must be coaxed out of the system with much tenderness and care. 
+
+This paper complements \newcite{D17-1321}'s empirical findings with a theoretical analysis. We reformulate the problem of agent-based communication---specifically the model of \newcite{havrylov2017emergence}---as a generative latent-variable model and show that the multi-agent-based simulation may be thought of as maximizing a specific mutual information between a message-valued random variable and a string-valued random variable. Then, applying classic tools from information theory, we show that, when optimizing the agents for a successful communication, one \emph{should not} expect a compositional language to emerge
+as the objective in no way encourages compositionality. Moreover, in our analysis, we debunk another myth: that the size of the language's vocabulary has an effect on compositionaliy. 
+
+\Ryan{This section needs to be discussed and (re)-written. The final section is in shambles at the moment...}
+The final section of the paper explores additional objectives that augment the mutual information objective to encourage compositionality and effiency. Following \newcite{kirby2014iterated}, we argue that compositionality emerge as language needs to generalize to novel messages. We give a simple recipe for encouraging compositionality without constraining the language space artifcially, as has been proposed by \cite{mordatch2018emergence}. 
+
+\section{A Generative Probability Model of Cooperative Communication}\label{sec:autoencoder}
+
+
+\subsection{Communication as a Generative Model}
+\paragraph{Notation.}
+We first establish the requisite notation to discuss our model.
+Let $\calM$ be the space of all messages one may wish to
+communicate. We will denote an element of this set as $\mm$. Let $\Sigma$ be a discrete vocabulary. We will denote an element 
+of this vocabulary as an unbolded roman letter, e.g., $x \in \Sigma$. Next, let $\xx \in \Sigma^*$ be a string in the language, created by the Kleene closure of the vocabulary $\Sigma$. Finally, let $M$ be an $\calM$-valued random variable and let $X$ be a $\Sigma^*$-valued random variable. 
+
+\paragraph{A Generative Model.}
+We now move onto a generative story of a communication.
+We will later connect this generative model to the multi-agent
+game of \newcite{havrylov2017emergence} in \cref{sec:agents}.
+In our model, the \defn{speaker} first selects a message $\mm \in \calM$ to communicate from
+a prior distribution:
+\begin{equation}
+\mm \sim p(\cdot)
+\end{equation}
+Then, conditioned on that message $\mm$, the speaker samples a string $\xx \in \Sigma^*$ from the language
+\begin{equation}
+\xx \sim \pspeak(\cdot \mid \mm)
+\end{equation}
+This results in a joint distribution over messages and strings
+that factorizes as follows
+\begin{equation}
+p(\xx, \mm) = \pspeak(\xx \mid \mm)\, p(\mm)
+\end{equation}
+In general, we will assume that $p(\mm)$ is fixed as the distribution of semantic messages
+that need to be communicated are external to the simulation. 
+
+\paragraph{Optimizing for Reliable Communication.}
+We would like a functonal communication system to emerge from this generative model. One measure of a good communication system is the \defn{mutual information} between $X$ and $M$, which in our case
+is defined to be
+\begin{align}
+I(M; X) &= H(M) - H(M \mid X) \\
+        &=\sum_{\mm \in \calM} \sum_{\xx \in \Sigma^*}p(\xx, \mm) \log_2 \frac{p(\xx, \mm)}{p(\xx) \, p(\mm)} \nonumber 
+\end{align}
+Thus, to induce a good communication system, we will optimize the mutual information directly. We note a connection here to the information-theoretic notion of \defn{channel capacity},\footnote{We note a contrast between our definition of chanel capcity and the traditional definition. Traditionally, the supremum is taken over all distributions over messages $p(\mm)$. In contrast, we optimize over the channel distributions $\pspeak(\xx \mid \mm)$. This is so as in traditional signal communication one does not have control over the noisy channel; instead, only can only control the message being sent. As we view language itself as the noisy channel, we wish to learn a channel that enables efficient communication for a fixed prior distribution over message $p(\mm)$.}
+which we define as
+\begin{equation}
+    \calC = \sup_{\pspeak(\xx \mid \mm)} I(X; M)
+\end{equation}
+In other words, the induction of a communication system is the search for a speaker $\pspeak$ whose performance is close to the channel capacity. For a further discussion of channel capacity and related concepts, we refer the reader to \newcite{cover2012elements}.
+
+\subsection{From Mutual Information to a Multi-Agent System}\label{sec:agents}
+Our exposition to this point has focused on generative modeling
+and mutual information; neither of these points is focal in the 
+emergent communication literature. What gives? The relation actually falls out of a variational approximation as computing the quantity $I(M; X)$ is intractable in our case. Building on this, we show how the multi-agent formulation of \newcite{havrylov2017emergence} may be derived from a variational approximation to mutual information. In fact, this makes their multi-agent system a type of discrete variational autoencoder (VAE) \cite{kingma2013auto}, albeit one with a stuctured latent variable---it ranges over $\Sigma^*$. Indeed, \newcite{havrylov2017emergence} themselves note the relation of their multi-agent system to generative
+modeling, writing ``the described indirect grounding of the artificial language in a natural language can be interpreted as
+a particular instantiation of a variational autoencoder (VAE).''
+
+Whence the second agent? Given our generative model $p(\xx, \mm)$, the conditional distribution $p(\mm \mid \xx)$ is of particular importance as it corresponds to the ability to interpret, rather than generate, a message $\mm$ given a string $\xx$. We will approximate this posterior over $\xx$ with variational disribution $\qlist(\xx \mid \mm)$, which we will term the \defn{listener}. 
+
+The derivation follows \newcite{agakov2004algorithm} who provide a variational lower bound on the mutual information. Specifically, they exhibit the bound
+\begin{align}
+    I(M; X) &= H(M) - H(M \mid X) \label{eq:bound} \\
+            &\geq H(M) + \underset{(\xx, \mm) \sim p(\cdot, \cdot)}{\mathbb{E}} \log \qlist(\mm \mid \xx) \nonumber \\
+             &= \underset{(\xx, \mm) \sim p(\cdot, \cdot)}{\mathbb{E}} \log \qlist(\mm \mid \xx) + \textit{const.} \nonumber
+\end{align}
+which holds for any choice of distribution $\qlist(\mm \mid \xx)$. We note that we do not need to approximate \begin{equation}
+H(M) = -\sum_{\mm \in \calM} p(\mm) \log_2 p(\mm)
+\end{equation}
+as $\calM$ is a finite set---this makes $H(M)$ tractable to compute, and, moreover, we can simply ignore it during optimization as it is constant. We will estimate the parameters of $\pspeak$ and $\qlist$ as by maximizing the upper bound $\cref{eq:bound}$. We note that \newcite{havrylov2017emergence} also make this connection to mutual information, noting that ``[i]t is important to mention that in this setup the communication loss is equivalent to the variational lower bound of mutual information \cite{agakov2004algorithm}.'' However, as \newcite{havrylov2017emergence} employ hinge loss, their model would require an additional annealing parameter to connection tight.\footnote{Hinge loss may be derived by annealing cross-entropy loss \cite{martins}. }
+
+%Finally, given the string $\xx$, the \defn{listener} samples a tag $\mm'$
+%that she believe best reconstructs the original %intent of the speaker.
+%\begin{equation}
+ % \mm' \sim \plist(\cdot \mid \xx)
+%\end{equation}
+%This process is repeated indefinitely. 
+%The goodness of the communication is judged according to whether
+%the listener managed to recover the morphological tag correctly.
+%This generative story corresponds to the following
+%latent-variable model
+
+\paragraph{Relation to Conditional Likelihood.}
+The lower bound we derive in \cref{eq:bound} does not only need to be interpreted as a lower bound on mutual information. Indeed, it is also a bound on the conditional likelihood of
+the probabilistic autoencoder
+\begin{align}
+  p(\mm', &\mm) = \label{eq:autoencoder} \\ 
+&  \sum_{\xx \in \Sigma^*}\qlist(\mm' \mid \xx)\, \pspeak(\xx \mid \mm)\, p(\mm) \nonumber
+\end{align}
+where the communication has been marginalized out. A good
+distribution $p(\mm, \mm')$ should place high probably
+on all pairs of messages $\mm$, $\mm'$ such that $\mm = \mm'$ for \emph{any}
+message that is sent.
+We define the \defn{success probability}, i.e., the probability of a success successful communication, as the following expression
+\begin{equation}
+ S = \sum_{\mm \in \calM} p(\mm, \mm)
+\end{equation}
+We can easily show that the bound in \cref{eq:bound} is a bound on the log of \cref{eq:autoencoder}:
+\begin{align*}
+\log p(\mm', \mm) &= \log \sum_{\xx \in \Sigma^*}\qlist(\mm' \mid \xx)\, p(\xx, \mm) \\
+&\geq \sum_{\xx \in \Sigma^*} p(\xx, \mm)\, \log \qlist(\mm' \mid \xx) \\
+&= \underset{(\xx, \mm) \sim p(\cdot, \cdot)}{\mathbb{E}} \log \qlist(\mm' \mid \xx) \\
+\end{align*}
+Thus, we may also interpret maximizing the lower bound on mutual information as minimizing a lower bound on the conditional log-likelihood. 
+
+
+\section{An Information-Theoretic Analysis}\label{sec:analysis}
+But do we really want to optimize $I(M; X)$?
+Whether or not the speaker $\pspeak$ comes up with a natural and compositional language depends muchly on what objective we actually choose to optimize. Here, we provide a theoretical analysis that mutual information should not, in general, be
+the only term in the objective. 
+Under the assumption that the distribution $\pspeak(\xx \mid \mm)$ has a rich enough parameterization to express any distribution, we can actually find a closed form solution to problem of maximizing the mutual information $I(M; X)$. We provide these results here. 
+
+\begin{prop}
+There exists a distribution $\pspeak(\xx \mid \mm)$ such that 
+\begin{equation}
+I(M; X) = H(M)
+\end{equation}
+which is the channel capacity.
+\end{prop}
+\begin{proof}
+Since $I(M; X) = H(M) - H(M \mid X)$, it is sufficient to show that $H(M \mid X) = 0$. (Note that we take $p(\mm)$ to be given so $H(M)$ is constant.) By definition,
+\begin{equation}
+H(M \mid X) = -\sum_{\xx \in \Sigma^*} \sum_{\mm \in \calM} p(\xx, \mm) \log_2 p(\mm \mid \xx)
+\end{equation}
+Now, for every $\mm \in \calM$, choose a unique $\xx_\mm \in \Sigma^*$ such that $p(\xx_\mm \mid \mm) = 1$. Thus, $p(X = \xx_\mm, \mm) = p(\mm)$
+and $p(X = \xx', \mm) = 0$ if $\xx' \neq \xx_\mm$. It follows that $p(X = \xx_\mm \mid \mm) = 1$, but $p(X = \xx' \mid \mm) = 0$ if $\xx' \neq \xx_\mm$. These two conditions imply $H(M \mid X) = 0$ as either $p(\mm \mid \xx) = 1 \Rightarrow \log_2 p(\mm \mid \xx) = 0$ or $p(\mm, \xx) = 0$. Thus, $I(M; X) = H(M)$.
+\end{proof}
+
+\begin{remark}
+There always exists a non-compositional optimal emergent protocol. (We will take
+an emergent protocol to be a choice of the distribution $\pspeak(\xx \mid \mm)$.) To see this, focus on the deterministic case where, for every $\mm \in \calM$, we have $p(\xx \mid \mm) = 1$ for some $\xx \in \Sigma^*$. We can assign the $\xx$ arbitrarily independent of length; thus, we may scramble around our decoder until we arrive at one, which the modeler does not deem compositional.\Ryan{We need a more rigorous definition of compositional to make a more precise statement. See \newcite{andreas2018measuring}, perhaps?}
+Importantly, none of the ideas in this remark make use of the size of the alphabet $|\Sigma|$. \newcite{nowak1999evolution} and \newcite{mordatch2018emergence} argue that the size of the vocabulary matters in terms of the development of the compositionality. However, under the mutual information interpretation of the mutli-agent system, it is clear that the vocabulary size plays no role. 
+\end{remark}
+
+\begin{definition}
+We define the \defn{efficiency} of communication under a distribution $\pspeak$ as
+\begin{equation}
+E(\pspeak) = \sum_{\mm \in \calM} p(\mm) \left( \sum_{\xx \in \Sigma^*}  \pspeak(\xx \mid \mm)\, |\xx| \right)
+\end{equation}
+\end{definition}
+
+\begin{prop}
+The optimizing protocol may be arbitrarily 
+inefficient. 
+\end{prop}
+\begin{proof}
+Let $\Sigma = \{a_1, \ldots, a_n\}$ be a vocabulary of size $n$. Let $\pspeak(\xx \mid \mm)$ be a protocol such that $I(M; X) = H(M)$. For every $\mm \in \calM$, suppose $\pspeak(\xx_\mm \mid \mm) = 1$. By way of contradiction, suppose that $\pspeak$ is the least efficient protocol. Now, construct a
+second protocol $\pspeak'$ such that $\pspeak(\xx a_1 \mid \mm) =1$. Clearly, $E(\pspeak') > E(\pspeak)$, contradicting the assumption that $\pspeak$ was the least efficient protocol. 
+\end{proof}
+
+\begin{remark}
+The most efficient protocol may be constructed in the following fashion. For each message in $\calM$, assign the highest probability messages under $p(\mm)$ the shortest strings in $\Sigma^*$. Note that the absolute efficiency value $E(\pspeak)$ will depend heavily on the size of the vocabulary $|\Sigma|$. 
+\end{remark}
+\begin{definition}
+We define \defn{average information} as
+\begin{equation}
+I = \sum_{\mm \in \calM} p(\mm,\mm) (-\log_2 p(\mm)) 
+\end{equation}
+\end{definition}
+
+\begin{definition}
+The \defn{bandwidth} is defined as the following 
+ratio
+\begin{equation}
+    \textit{B} = \frac{\textit{E}}{\textit{I}}
+\end{equation}
+Finally, we will be interested in the mutual information
+\begin{equation}
+\textit{MI} = I(M; X)
+\end{equation}
+\end{definition}
+%The ratio of these is the bandwidth of the communicative system.  
+We note that this is a bit approximate, because we still get some some information back about $\mm$ just from $\xx$, namely the half-pointwise mutual information, i.e., $H(M) - H(M \mid X=\xx)$.  Above we are assuming that we have a stochastic decoder and we get positive reward if it works and 0 reward [why not negative?] it it fails; seems like a silly loss function, unless the world hands you a candy every time your communication succeeds.
+
+\Ryan{see also rate-distortion theory}
+
+\Ryan{Note that the bandwidth is bounded below by the entropy.}
+
+The highest-bandwidth system (which as assumed above, assigns codes to messages independent of the context of the message) would deterministically assign each message $\mm$ a code $\xx$ of length $|\xx| = -\log_2 p(\mm)$ bits.  In general, such a code can't be compositional for a multi-part message.
+
+But we have pressure to pick compositional codes because they're faster to learn.
+
+We might also have pressure to pick compositional codes because a smaller codebook requires less cognitive effort for the speaker and the listener.  That's not taken into account in the bandwidth expression (but it could be if we revised it).
+\begin{align}
+    I(M; X) &= H(M) - H(M \mid X) 
+\end{align}
+\begin{align}
+    H(M \mid X) &= - \sum_{\xx \in \Sigma^*}\sum_{\mm \in \calM} p(\mm, \xx) \log \frac{p(\mm, \xx)}{p(\xx)} \\
+    &= -\sum_{\xx \in \Sigma^*} \sum_{\mm \in \calM}  p(\mm, \xx) \log p(\mm \mid \xx) \\
+    &= -\sum_{\xx \in \Sigma^*} p(\xx) \sum_{\mm \in \calM}  p(\mm \mid \xx) \log p(\mm \mid \xx) \\
+    &= \mathbb{E}_{\xx \sim p} H(M \mid X=\xx)
+\end{align}
+
+%Why would this ever be compositional? Learnability. It is %easier for system to learn a compositional 
+
+\paragraph{Optimization}
+We will write this as the following loss function $\ell(\mm', \mm)$;
+we will define various $\ell(\cdot, \cdot)$ in \cref{sec:loss}.
+Using the joint distribution $p(\mm, \mm')$, we will write
+\begin{equation}
+\mathbb{E}_{(\mm', \mm) \sim p(\cdot, \cdot)} \ell(\mm', \mm)
+\end{equation}
+
+\section{What's Missing?}
+We have shown that, when interpreted probabilistically, the model
+of \newcite{havrylov2017emergence} is optimizing a variational bound on the mutual information $I(X; M)$ and on the log-probability of a successful communication. Assuming a successful optimization, this will
+lead to a \emph{sucessful} communication: The listener agent will
+be able to understand the speaker agent. However, we have shown in \cref{eq:analysis} that this objective is not enough to ensure \defn{efficient} and \defn{compositional} communication. Indeed, we exhibit an optimal language that is neither efficient \emph{nor} compositional. 
+%Within this framework, we further debunk the idea that a small vocabulary may inherently help compositionality: the size of the vocabulary $|\Sigma|$ will only impact the efficiency of the communication. 
+So what will give us human-like communication? We argue that rather than 
+
+\subsection{Effiency}
+
+\subsection{Compositionality = Generalizability}
+\newcite{kirby2014iterated} argue that generalizability is the key to compositionality. Consider the case of the wug-test of \newcite{berko1958child}; she showed that both children and adults are capable of analyzing and producting the inflectional bit of novel words. For instance, it is clear to any speaker that \word{wugged} is likely past-tense verb, and, conditioned on the fact that it is a past-tense verb, that \word{wugs} is its third-person singular. 
+
+Within our framework, $\calM$ is taken to be finite. And, indeed, even if $\calM$ were infinite, if we train the model for a finite number of iterations, $\calM$ we will only have observed a finite portion of $\calM$, so $\calM$ will effectively be finite in practice. So, how can ensure that our speakers can generalize. 
+
+Luckily, machine learning already focuses on out-of-sample generalization. The most common technique for this is use of a development set. We will split $\calM$ into a training and development portion
+
+
+\section{Recurrent Neural Parameterization}\label{sec:parameterization}
+
+\paragraph{Parameterizing $\pspeak$.}\label{sec:i-e-mapper}
+The state of the art in morphological inflection generation is held by
+neural sequence-to-sequence models (CITATION), usually based on gated recurrent
+networks such as long short-term memory (LSTM; CITATION). Thus, we choose
+to parameterize $\pspeak$ as follows
+\begin{equation}
+  \pspeak(\xx \mid \mm) = \prod_{i=1}^{|\xx|} p(x_i \mid \xx_{< i}, \mm) 
+\end{equation}
+where
+\begin{equation}
+  p(\cdot \mid \xx_{< i}, \mm) = \textit{softmax}\left(\mathbf{W}^{(\textit{enc})}\, \vech^{(\textit{enc})}_i + \vecb^{(\textit{enc})} \right)
+\end{equation}
+and $\vech_i = \textit{LSTM}_{\textit{enc}}(\vech_{i-1}, \xx_{< i})$.
+
+\paragraph{Parameterizing $\plist$.}\label{sec:e-i-mapper}
+We parameterize the listener using an LSTM encoder.
+\begin{equation}
+p(\cdot \mid \xx) = \textit{softmax}\left(\mathbf{W}^{(\textit{dec})}\, \vech^{(\textit{dec})}_i + \vecb^{(\textit{dec})} \right)
+\end{equation}
+where $\vech^{(\textit{dec})}_i = \textit{LSTM}_{\textit{dec}}(\xx)$ where $\textit{LSTM}_{\textit{dec}}$ returns the final state of a BiLSTM folded over input string $\xx$. 
+
+\subsection{Loss Function}\label{sec:loss}
+
+\subsection{Parameter Estimation}
+Explain REINFORCE \cite{williams1992simple}
+\begin{align}
+\log  \sum_{\xx \in \Sigma^*}\plist(\mm' \mid \xx)\, \pspeak(\xx \mid \mm) + \log p(\mm)
+\end{align}
+
+\section{Related Work}
+\newcite{havrylov2017emergence}, \newcite{andreas2018measuring}
+
+\section{Conclusion}
+
+\bibliography{acl2018}
+\bibliographystyle{acl_natbib}
+
+\end{document}
